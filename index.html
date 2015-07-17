@@ -121,7 +121,7 @@
 		font-family: 'Arial';
 		padding: 0 0 0 50px ;
 		font-weight: 700;
-		text-align: center;
+		/*text-align: center;*/
 		display: none;
 	}
 	.cover{
@@ -161,6 +161,42 @@
 	#next{
 		cursor: pointer;
 	}
+
+
+	@-webkit-keyframes zoomIn {
+	  0% {
+	    opacity: 0;
+	    -webkit-transform: scale3d(.3, .3, .3);
+	    transform: scale3d(.3, .3, .3);
+	  }
+
+	  50% {
+	    opacity: 1;
+	  }
+	}
+
+	@keyframes zoomIn {
+	  0% {
+	    opacity: 0;
+	    -webkit-transform: scale3d(.3, .3, .3);
+	    transform: scale3d(.3, .3, .3);
+	  }
+
+	  50% {
+	    opacity: 1;
+	  }
+	}
+
+.zoomIn {
+  -webkit-animation-name: zoomIn;
+  animation-name: zoomIn;
+}
+.animated {
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
   </style>
 </head>
 <body>
@@ -250,13 +286,17 @@
 		var count=0;
 
 		$('#next').click(function(){
-			// $(this).removeClass('rotate').addClass('rotate');
+			$(this).addClass('animated zoomIn');
 			if(count>6){
 				alert('无后续步骤')
 			}else{
 				arr[count++].call();
 			}
 		})
+
+		 next.addEventListener("webkitAnimationEnd", function(){
+                this.className = '';
+            }, false);
 
 		
 
