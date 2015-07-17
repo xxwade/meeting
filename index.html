@@ -69,7 +69,7 @@
 	.text{
 		float: left;
 		min-width: 150px;
-		min-height: 80px;
+		/*min-height: 80px;*/
 		width:200px;
 		height: 145px;
 		line-height: 145px;
@@ -111,7 +111,7 @@
 		display: inline-block;
 		width:1000px;
 		min-width: 700px;
-		height: 165px;
+		height: 145px;
 		min-height: 90px;
 		line-height: 138px;
 		background: url(images/input.png) no-repeat center top;
@@ -122,6 +122,7 @@
 		padding: 0 0 0 50px ;
 		font-weight: 700;
 		text-align: center;
+		display: none;
 	}
 	.cover{
 		position: absolute;
@@ -146,17 +147,20 @@
  		min-width: 1000px;
  		width: 100%;
  		max-width: 1310px;
- 		margin: 0 auto;
-
+ 		margin: 0 auto 2%;
  	}
 
- 	.question:hover{
+ 	.rotate{
 	    -webkit-transform:rotateY(720deg);
 	    -webkit-transition-property:all; 
 	    -webkit-transition-duration:2s; 
 	    -webkit-transition-timing-function:ease-in;
 	}
 
+
+	#next{
+		cursor: pointer;
+	}
   </style>
 </head>
 <body>
@@ -169,31 +173,35 @@
 				<img src="images/title.png">
 			</div>
 			<div class="headerRight clearfix">
-				<img src="images/logo_02.png">
+				<img id="next" src="images/logo_02.png">
 			</div>
 		</div>
+		<!-- <button >下一步</button> -->
 		<div class="mainBody clearfix">
-			<div class="content clearfix">
+			<!-- <div class="content clearfix">
 				<div class="text"><em class="question"></em></div>
 				<div class="inputNum">400,4000,000<em class="cover"></em></div>
+			</div> -->
+			<div class="content clearfix">
+				<div class="text"><em class="question" id="question1"></em></div>
+				<div class="inputNum" ><span id="total-income"></span><em class="cover"></em></div>
 			</div>
 			<div class="content clearfix">
-				<div class="text"><em class="text1"></em></div>
-				<div class="inputNum" ><em class="cover" id="total-income"></em></div>
+				<div class="text"><em class="question" id="question2"></em></div>
+				<div class="inputNum"><span  id="total-trade"></span><em class="cover"></em></div>
 			</div>
 			<div class="content clearfix">
-				<div class="text"><em class="text2"></em></div>
-				<div class="inputNum"><em class="cover"  id="total-trade"></em></div>
-			</div>
-			<div class="content clearfix">
-				<div class="text"><em class="text3"></em></div>
-				<div class="inputNum"><em class="cover" id="invest-user"></em></div>
+				<div class="text"><em class="question" id="question3"></em></div>
+				<div class="inputNum"><span id="invest-user"></span><em class="cover"></em></div>
 			</div>
 		</div>
+
+		
 		<div class="footer clearfix">
 			<img src="images/footer.png">
 		</div>
 	</div>
+	<script src="jquery.min.js"></script>
 	<script src="countUp/countUp.js"></script>
 	<script>
 		var options = {
@@ -203,20 +211,54 @@
 		  decimal : '.', 
 		  prefix : '', 
 		  suffix : '' 
-		};
-		var income = new CountUp("total-income", 0, 100000000, 0, 10, options);
-		var trade = new CountUp("total-trade", 0, 30000000000, 0, 35, options);
-		var user = new CountUp("invest-user", 0, 500000, 0, 10, options);
-		income.start(function(){
-			setTimeout(function(){
+		};		
+		
+		
+		// trade.start();
+		// user.start();
+
+		function question(num){
+			$('#question'+num).addClass('rotate');
+			$('#question'+num).removeClass('question').addClass('text'+num);
+		}
+
+		var arr = {
+			0:function(){question(1)},
+			1:function(){
+				$('#total-income').parent().show();				
+				var income = new CountUp("total-income", 0, 100000000, 0, 10, options);
+				income.start();
+			},
+			2:function(){
 				var new_income = new CountUp("total-income", 100000000, 400000000, 0, 20, options);
 				new_income.start();
-				// income.update(400000000)
-			},5000)
-			
-		});
-		trade.start();
-		user.start();
+			},
+			3:function(){question(2)},
+			4:function(){
+				$('#total-trade').parent().show();
+				var trade = new CountUp("total-trade", 0, 30000000000, 0, 35, options);
+				trade.start();
+			},
+			5:function(){question(3)},
+			6:function(){
+				$('#invest-user').parent().show();
+				var user = new CountUp("invest-user", 0, 500000, 0, 10, options);
+				user.start();
+			}
+		}
+
+		var count=0;
+
+		$('#next').click(function(){
+			// $(this).removeClass('rotate').addClass('rotate');
+			if(count>6){
+				alert('无后续步骤')
+			}else{
+				arr[count++].call();
+			}
+		})
+
+		
 
 
 
