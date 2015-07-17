@@ -1,0 +1,225 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="renderer" content="webkit|ie-comp|ie-stand">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>全员大会目标宣誓数字滚动屏</title>
+  <style type="text/css">
+  	body,html{
+		font-size: 14px;
+	}
+	.wrap{
+		min-width:1000px;
+		width: 100%;
+		margin: 0;
+		padding: 0;
+	}
+
+	/*清除浮动*/
+	.clearfix:before, .clearfix:after {
+		content:"";
+		display:table;
+	}
+	.clearfix:after{
+		clear:both;
+		overflow:hidden;
+	}
+	.clearfix{
+		zoom:1;
+	}
+
+	.header{
+		width: 100%;
+		margin: 2% 0 2%;
+	}
+	.headerLeft{
+		width: 20%;
+		float: left;
+		text-align: left;
+	}
+	.headerLeft img{
+		width: 80%;
+		height: 80%;
+		margin-top: 11%;
+	}
+	.headerMiddle{
+		width: 60%;
+		float: left;
+		text-align: center;
+	}
+	.headerMiddle img{
+		width: 80%;
+		height: 80%;
+		margin-top: 4%;
+	}
+	.headerRight{
+		width: 20%;
+		float: left;
+		text-align: right;
+	}
+	.headerRight img{
+		width: 80%;
+		height: 80%;
+	}
+	.mainBody{
+		min-width: 1000px;
+		width: 100%;
+		margin:5% auto 3%;
+	}
+	.text{
+		float: left;
+		min-width: 150px;
+		min-height: 80px;
+		width:200px;
+		height: 145px;
+		line-height: 145px;
+		background-color: #f71c50;
+		text-align: center;
+		margin: 0 20px;
+	}
+	.question{
+		display: inline-block;
+		width: 85px;
+		height: 117px;
+		margin-top: 7%;
+		background: url(images/question.png) no-repeat center top;
+	}
+	.text1{
+		display: inline-block;
+		width:184px;
+		height: 60px;
+		margin-top: 21%;
+		background: url(images/text_01.png) no-repeat center top;
+	}
+	.text2{
+		display: inline-block;
+		width:122px;
+		height: 135px;
+		margin-top: 3%;
+		background: url(images/text_02.png) no-repeat center top;
+	}
+	.text3{
+		display: inline-block;
+		width:184px;
+		height: 135px;
+		margin-top: 2%;
+		background: url(images/text_03.png) no-repeat center top;
+	}
+	.inputNum{
+		position: relative;
+		float: left;
+		display: inline-block;
+		width:1000px;
+		min-width: 700px;
+		height: 165px;
+		min-height: 90px;
+		line-height: 138px;
+		background: url(images/input.png) no-repeat center top;
+		background-size: 100%;
+		color: #bd001a;
+		font-size:10em;
+		font-family: 'Arial';
+		padding: 0 0 0 50px ;
+		font-weight: 700;
+		text-align: center;
+	}
+	.cover{
+		position: absolute;
+		top: 0;
+		left: 0;
+		display: inline-block;
+ 		width: 100%;
+ 		height: 41%;
+ 		background: rgba(255,255,255,0.4) none repeat scroll !important;
+ 		background: #000;
+ 		filter: alpha(opacity = 40);
+	　　-moz-opacity: 0.4;
+	　　-khtml-opacity: 0.4;
+	　　opacity: 0.4;
+
+ 	}
+	.footer{
+		width: 100%;
+		overflow: hidden;
+	}
+ 	.content{
+ 		min-width: 1000px;
+ 		width: 100%;
+ 		max-width: 1310px;
+ 		margin: 0 auto;
+
+ 	}
+
+ 	.question:hover{
+	    -webkit-transform:rotateY(720deg);
+	    -webkit-transition-property:all; 
+	    -webkit-transition-duration:2s; 
+	    -webkit-transition-timing-function:ease-in;
+	}
+
+  </style>
+</head>
+<body>
+	<div class="wrap clearfix">
+		<div class="header clearfix">
+			<div class="headerLeft">
+				<img src="images/logo_01.png">
+			</div>
+			<div class="headerMiddle clearfix">
+				<img src="images/title.png">
+			</div>
+			<div class="headerRight clearfix">
+				<img src="images/logo_02.png">
+			</div>
+		</div>
+		<div class="mainBody clearfix">
+			<div class="content clearfix">
+				<div class="text"><em class="question"></em></div>
+				<div class="inputNum">400,4000,000<em class="cover"></em></div>
+			</div>
+			<div class="content clearfix">
+				<div class="text"><em class="text1"></em></div>
+				<div class="inputNum" ><em class="cover" id="total-income"></em></div>
+			</div>
+			<div class="content clearfix">
+				<div class="text"><em class="text2"></em></div>
+				<div class="inputNum"><em class="cover"  id="total-trade"></em></div>
+			</div>
+			<div class="content clearfix">
+				<div class="text"><em class="text3"></em></div>
+				<div class="inputNum"><em class="cover" id="invest-user"></em></div>
+			</div>
+		</div>
+		<div class="footer clearfix">
+			<img src="images/footer.png">
+		</div>
+	</div>
+	<script src="countUp/countUp.js"></script>
+	<script>
+		var options = {
+		  useEasing : true, 
+		  useGrouping : true, 
+		  separator : ',', 
+		  decimal : '.', 
+		  prefix : '', 
+		  suffix : '' 
+		};
+		var income = new CountUp("total-income", 0, 100000000, 0, 10, options);
+		var trade = new CountUp("total-trade", 0, 30000000000, 0, 35, options);
+		var user = new CountUp("invest-user", 0, 500000, 0, 10, options);
+		income.start(function(){
+			setTimeout(function(){
+				var new_income = new CountUp("total-income", 100000000, 300000000, 0, 20, options);
+				new_income.start();
+				// income.update(400000000)
+			},5000)
+			
+		});
+		trade.start();
+		user.start();
+
+
+
+	</script>
+</body>
+</html>
